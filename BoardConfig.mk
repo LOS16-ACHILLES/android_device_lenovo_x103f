@@ -180,9 +180,6 @@ MALLOC_SVELTE := true
 #TARGET_PROCESS_SDK_VERSION_OVERRIDE += \
 #    /vendor/bin/hw/rild=27
 
-# Recovery
-TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_cm
-
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
 
@@ -238,6 +235,8 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 11811160064
 
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := ext4
+
+BOARD_ROOT_EXTRA_SYMLINKS += /data/tombstones:/tombstones
 
 # Kernel
 TARGET_KERNEL_CONFIG := lineageos_x103f_defconfig

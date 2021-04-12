@@ -19,6 +19,9 @@
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 PRODUCT_ENFORCE_RRO_TARGETS := framework-res
 
+# Shipping API level
+$(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_l.mk)
+
 # ANT+
 PRODUCT_PACKAGES += \
     AntHalService \
@@ -71,6 +74,10 @@ PRODUCT_COPY_FILES += \
     frameworks/av/services/audiopolicy/config/default_volume_tables.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default_volume_tables.xml \
     frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml \
     frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml
+    
+# fastbootd
+PRODUCT_PACKAGES += \
+    fastbootd
 
 # Bluetooth
 PRODUCT_PACKAGES += \
@@ -96,7 +103,7 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.allocator@2.0-impl \
     android.hardware.graphics.allocator@2.0-service \
     android.hardware.graphics.composer@2.1-impl \
-    android.hardware.graphics.mapper@2.0-impl \
+    android.hardware.graphics.mapper@2.0-impl-2.1 \
     android.hardware.memtrack@1.0-impl \
     android.hardware.memtrack@1.0-service
 
@@ -201,11 +208,7 @@ PRODUCT_COPY_FILES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    android.hardware.power@1.1-service-qti
-
-# Recovery
-PRODUCT_PACKAGES += \
-    librecovery_updater_cm
+    android.hardware.power@1.2-service-qti
 
 # RenderScript HAL
 PRODUCT_PACKAGES += \
@@ -214,8 +217,7 @@ PRODUCT_PACKAGES += \
 
 # Seccomp
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/seccomp/mediacodec-seccomp.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy \
-    $(LOCAL_PATH)/seccomp/mediaextractor-seccomp.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediaextractor.policy
+    $(LOCAL_PATH)/seccomp/mediacodec-seccomp.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy
 
 # Sensors
 PRODUCT_PACKAGES += \
@@ -258,7 +260,7 @@ PRODUCT_PACKAGES += \
     wpa_supplicant.conf
 
 PRODUCT_PACKAGES += \
-    android.hardware.wifi@1.0-service
+    android.hardware.wifi@1.0-service.legacy
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
@@ -303,6 +305,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/audio/sound_trigger_platform_info.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sound_trigger_platform_info.xml \
     $(LOCAL_PATH)/configs/audio/sound_trigger_mixer_paths.xml:system/etc/sound_trigger_mixer_paths.xml \
     $(LOCAL_PATH)/configs/audio/sound_trigger_platform_info.xml:system/etc/sound_trigger_platform_info.xml
+    
+# APEX
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/ld.config.txt:$(TARGET_COPY_OUT_VENDOR)/etc/swcodec/ld.config.txt
 
 # Boot animation
 TARGET_SCREEN_HEIGHT := 1280

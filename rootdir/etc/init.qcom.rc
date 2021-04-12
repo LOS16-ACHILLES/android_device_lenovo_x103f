@@ -237,10 +237,11 @@ service ril-daemon /vendor/bin/hw/rild
     group radio cache inet misc audio log readproc wakelock
     capabilities BLOCK_SUSPEND NET_ADMIN NET_RAW
 
-service charger /charger
+service charger /system/bin/charger
     class charger
-    group log
-    seclabel u:r:healthd:s0
+    group system graphics
+    capabilities SYS_BOOT
+    seclabel u:r:charger:s0
 
 # start camera server as daemon
 service qcamerasvr /system/vendor/bin/mm-qcamera-daemon
@@ -332,3 +333,8 @@ service wcnss-service /system/vendor/bin/wcnss_service
 service qcom-mem /system/vendor/bin/init.qcom.mem.sh
     disabled
     oneshot
+    
+on property:apexd.status=ready
+    mount none /system/vendor/etc/swcodec/ld.config.txt /apex/com.android.media.swcodec/etc/ld.config.txt bind
+    
+    

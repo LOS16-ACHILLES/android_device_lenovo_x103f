@@ -64,3 +64,6 @@
 /persist/acc_avg(/.*)?                               u:object_r:sensors_persist_file:s0
 /persist/prox_avg(/.*)?                              u:object_r:sensors_persist_file:s0
 
+/tombstones                                             u:object_r:rootfs:s0
+
+
